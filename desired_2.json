@@ -1,0 +1,16 @@
+[    
+    {
+        "name": "dev-cluster",
+        "plan_name": "small",
+        "parameters": {
+        "kubernetes_worker_instances": 3
+        }
+    },
+    {
+        "name": "prod-cluster",
+        "plan_name": "medium",
+        "parameters": {
+           "kubernetes_worker_instances": 5
+        }
+     }
+]

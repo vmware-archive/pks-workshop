@@ -1,0 +1,9 @@
+[
+    {
+        "name": "dev-cluster",
+        "plan_name": "small",
+        "parameters": {
+           "kubernetes_worker_instances": 3
+        }
+     }
+]

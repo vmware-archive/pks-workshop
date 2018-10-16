@@ -1,0 +1,20 @@
+## URL to your PKS API Endpoint - Example: api.pks.pivotal.io
+pks_api_url: 
+## Username to login to PKS with. User must be able to create/delete/scale PKS clusters - Example: admin
+pks_api_username: 
+## Password for the above username - Example: lqxR471nSLfaGs0-xUYLXGU2agGIzv5z
+pks_api_password:
+## Prefix for which all PKS clusters will be provisioned with - Example: company
+pks_cluster_prefix: 
+## PKS Plan which all PKS clusters will be provisioned with. This plan must exist when running `pks plans` - Example: small
+pks_cluster_plan: 
+## SSH link to your git repo where the `desired.json` will live. Must be accessable from concourse - Example: git@github.com:Pivotal-Field-Engineering/pks-workshop.git
+pks_cluster_config_git_ssh:
+## The RSA private key which will allow concourse to commit to your git repository where the PKS cluster config lives. 
+## Ensure your RSA key is spaced in by 2 spaces on each new line and the first row contains a space and a pipe. Similar to the following:
+## github_private_key: |
+##  -----BEGIN RSA PRIVATE KEY-----
+##  MIIJKAIBAAKCAgEAt+6xorroA/YM33PCzwJFO5pweOwsemcaqTLIyy1vSlfIw6ix
+##  QFp4HTI74OCGwjfoDBKUOGSRXt1dAAFSpw4zpyTdjzw79OnRAhBbINV73cYFGD5R
+##  -----END RSA PRIVATE KEY-----
+git_private_key: |

@@ -1,0 +1,55 @@
+resources:
+- name: pks-scripts
+  type: git
+  source:
+    uri: git@github.com:Oskoss/peters-pipelines.git
+- name: pks-clusters-trigger
+  type: git
+  source:
+    uri: {{pks_cluster_config_git_ssh}}
+    private_key: {{github_private_key}}
+    branch: master
+- name: pks-clusters
+  type: git
+  source:
+    uri: {{pks_cluster_config_git_ssh}}
+    private_key: {{github_private_key}}
+    branch: master
+jobs:
+- name: determine-clusters-needs
+  plan:
+  - get: pks-scripts
+  - get: pks-clusters
+    resource: pks-clusters-trigger
+    trigger: true
+  - task: authenticate-pks
+    file: pks-scripts/pks/tasks/authenticate-pks/task.yml
+    params:
+      PKS_API_URL: {{pks_api_url}}
+      PKS_API_USERNAME: {{pks_api_username}}
+      PKS_API_PASSWORD: {{pks_api_password}}
+  - task: determine-clusters-needs
+    file: pks-scripts/pks/tasks/determine-clusters-needs/task.yml
+    params:
+      PKS_CLUSTER_JSON_FILE: desired.json
+  - put: pks-clusters
+    params: 
+      repository: pks-clusters-updated
+- name: resolve-clusters-needs
+  plan:
+  - get: pks-scripts
+  - get: pks-clusters
+    resource: pks-clusters
+    trigger: true
+    passed: [determine-clusters-needs]
+  - task: authenticate-pks
+    file: pks-scripts/pks/tasks/authenticate-pks/task.yml
+    params:
+      PKS_API_URL: {{pks_api_url}}
+      PKS_API_USERNAME: {{pks_api_username}}
+      PKS_API_PASSWORD: {{pks_api_password}}
+  - task: resolve-clusters-needs
+    file: pks-scripts/pks/tasks/resolve-clusters-needs/task.yml
+  - put: pks-clusters
+    params: 
+      repository: pks-clusters-updated
