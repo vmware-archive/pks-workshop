@@ -2,7 +2,7 @@ resources:
 - name: pks-scripts
   type: git
   source:
-    uri: git@github.com:Oskoss/peters-pipelines.git
+    uri: https://github.com/Oskoss/peters-pipelines.git
 - name: pks-clusters-trigger
   type: git
   source:
