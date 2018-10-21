@@ -1,0 +1,14 @@
+# This role binding allows "dev01" to read/write all objects in the "default" namespace.
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: namespace-user
+  namespace: default # This only grants permissions within the "default" namespace.
+subjects:
+- kind: User
+  name: dev01 # Name is case sensitive
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: edit # Default K8s Role - grants read/write permissions to all object in namespace except for Roles and RoleBindings.
+  apiGroup: rbac.authorization.k8s.io
